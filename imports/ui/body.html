@@ -1,0 +1,48 @@
+<body>
+  <div class="container">
+    <div class="left">
+      <div class="logo">
+        <h2>Draw & Guess</h2>
+         <p>{{> loginButtons}}</p>
+
+      </div>
+      <div class="player">
+        <p>playername</p>
+        <p>player2</p>
+        <p>player3</p>
+        <p>player4</p>
+      </div>
+    </div>
+    <div class="middle">
+      <div class="word">
+        <p>answer is : <strong>apple</strong></p>
+        <p>please draw below.</p>
+      </div>
+
+      <div class="canvas-container">
+        <div class="draw"><canvas id="c" width="500" height="500" style="border:1px solid #aaa"></canvas>
+        </div>    
+        <div class="drawing-mode-options">
+          <button id="save-drawing" class="btn btn-info">Save Drawing</button><br>
+          <button id="clear-canvas" class="btn btn-info">Clear</button><br>
+    </div>
+  </div>
+    </div>
+    <div class="right">
+    <div class="answer">
+    <header>
+       <h1>Answers:</h1>
+       <form class="new-task">
+          <li><label>Your answer:</label> <input type="text" name="text" placeholder="Type to answer here" /></li>
+        </form>
+    </header> 
+    <ul>
+      {{#each tasks}}
+        {{> task}}
+      {{/each}}
+    </ul>
+
+  </div>
+</div>
+</div>
+</body>
