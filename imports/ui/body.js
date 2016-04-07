@@ -1,14 +1,21 @@
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
 import { Meteor } from 'meteor/meteor';
- 
 import './body.html';
 import './task.js';
 import { Tasks } from '../api/tasks.js';
+import { Tracker } from 'meteor/tracker'
+// import { Users } from '../api/user.js';
+import { Answers } from '../api/answer.js';
 import { Images } from '../api/canvas2svg.js';
+//import session for answer
+import { Session } from 'meteor/session'
 
 Template.body.onCreated(function bodyOnCreated() {
   this.state = new ReactiveDict();
+  Meteor.subscribe('data')
+  // setInterval(updateSVG, 50);
+
 }); 
 
 Template.body.helpers({
@@ -17,56 +24,54 @@ Template.body.helpers({
     	return Tasks.find({}, { sort: { createdAt: -1 } });
       // return Tasks.find();
 	},
+  svg() {
+    var x;
+    Images.find({},{sort: { createdAt: -1 }}).forEach(function(doc) {
+      x = doc.svg
+    })
+    return x;
+  },
 });
 
 var canvas = null;
-var drawingModeEl = null,
-    drawingOptionsEl = null,
-    drawingShadowColorEl = null,
-    drawingLineWidthEl = null,
-    drawingShadowWidth = null,
-    drawingShadowOffset = null,
-    clearEl = null;
-
-var pattern = null;
-
+var clearEl = null;
 
 Template.body.onRendered(function(){
   canvas = this.__canvas = new fabric.Canvas('c', {
-  isDrawingMode: true
-
-
-
+    isDrawingMode: true
+  });
+  fabric.Object.prototype.transparentCorners = false;
+  clearEl = document.getElementById('clear-canvas');
 });
 
-fabric.Object.prototype.transparentCorners = false;
-
-
-      drawingModeEl = document.getElementById('drawing-mode'),
-      drawingOptionsEl = document.getElementById('drawing-mode-options'),
-      drawingColorEl = document.getElementById('drawing-color'),
-      drawingShadowColorEl = document.getElementById('drawing-shadow-color'),
-      drawingLineWidthEl = document.getElementById('drawing-line-width'),
-      drawingShadowWidth = document.getElementById('drawing-shadow-width'),
-      drawingShadowOffset = document.getElementById('drawing-shadow-offset'),
-      clearEl = document.getElementById('clear-canvas');
-
-});
-
-Template.body.events({
-
-  'click #save-drawing'(event) {
+function updateSVG() {
     // convert canvas to SVG
     var svg = canvas.toSVG();
-    //console.log(svg);
+    var a = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">";
+    svg = svg.replace(a, "");
+    // save SVG to collection
+    Images.insert({
+      svg: svg,
+      createdAt: new Date(),
+    });
 
+    Meteor.subscribe('data')
+}
 
-    // TODO - save SVG to collection
-    Images.insert({svg});
-    console.log(Images.find())
+Template.body.events({
+    'mouseup canvas'(event) {
+      Meteor.setTimeout(updateSVG,1)
+    },
 
-
-    // TODO - all subscribers to above (pub) see SVG (note that SVG can be rendered directly)
+  'submit .answerbyuser'(event){
+    event.preventDefault(); 
+    const answer = event.target.answerbyuser.value;
+    Answers.insert({
+      'answer':answer,
+      createdAt: new Date(),
+      });    
+    console.log("inserted one record - "+ answer);
+    event.target.answerbyuser.value = '';
   },
 
   'submit .new-task'(event) {
@@ -75,7 +80,6 @@ Template.body.events({
     // Get value from form element
     const target = event.target;
     const text = target.text.value;
- 
     // Insert a task into the collection
     Tasks.insert({
       text,
@@ -85,10 +89,25 @@ Template.body.events({
     });
     // Clear form
     target.text.value = '';
-  },
 
-  'click #clear-canvas'(){
+    Meteor.subscribe('answerdata');
+    var y;
+    Answers.find({},{sort: { createdAt: -1 }}).forEach(function(doc) {
+    y = doc.answer;
+    })
+
+    console.log(y)
+
+    if(y===text){
+       // console.log("win")
+     alert(Meteor.user().username+" is the winner!!");
+    };
+    Meteor.subscribe('taskdata');
+   },
+
+  'click #clear-canvas'(event){
     canvas.clear();
+    updateSVG();
   },
 
 });

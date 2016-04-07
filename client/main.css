@@ -2,19 +2,16 @@
 body {
   font-family: sans-serif;
   background-color: white;
-
+  background: url(http://pic.pp3.cn/uploads//allimg/c040111/10IK32423Y60-12H5.jpg);
   background-attachment: fixed;
-
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-
   padding: 0;
   margin: 0;
-
-  font-size: 14px;
+  font-size: 16px;
   float: left;
 }
 .container{
@@ -29,55 +26,67 @@ body {
 }
 .middle{
   float: left;
-  width: 825px;
+  width: 620px;
   height: 510px;
 }
 .right{
   float: left;
-  width: 250px;
+  width: 350px;
   height: 510px;
 }
 .logo{
   width: 170px;
   height: 100px;
-  background-image: url("logo.png");
+  font-family: Papyrus,fantasy;
+  background-image: url(http://img2.web07.cn/UpPic/Png/201503/09/4392380913445143.png);
+  background-size: 170px 100px;
 }
 .player{
+  font-family: Consolas,monaco,monospace;
   width: 170px;
   height: 500px;
 }
 .word{
-  width: 825px;
+  width: 550px;
   height: 50px;
+  text-align: center;
+  font-size: 17px;
+  font-family: "Avant Garde",Avantgarde,"Century Gothic",CenturyGothic,AppleGothic,sans-serif;
 
 }
 .draw{
-  width: 501px;
-  height: 501px;
+  width: 303px;
+  height: 503px;
+  float: left;
+}
+.thumbnail{
+  border: 3px solid #aaa;
+  width: 303px;
+  height: 500px;
   float: left;
 }
 .canvas-container{
-  width: 825px;
-  height: 510pxpx;
+  width: 620px;
+  height: 510px;
   float: left;
 }
 .drawing-mode-options{
 
-  margin-right: 10px;
+
   float: left;
 
 }
 .answer {
-  width: 250px;
-  height: 510px;
+  width: 350px;
+  min-height: 100%;
   background: white;
   float: left;
+  font-size: 14px;
 }
 
 
 header {
   background: #d2edf4;
-  background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
   padding: 20px 15px 15px 15px;
   position: relative;
 }
@@ -117,7 +126,7 @@ form {
 ul {
   margin: 0;
   padding: 0;
-  background: white;
+
 }
 
 .delete {
@@ -153,7 +162,25 @@ header .hide-completed {
   margin-left: 5px;
 }
 
+.btn{
+  float: left;
 
+    width: 120px;
+    line-height: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 1px #333;
+    border-radius: 5px;
+    margin: 4px 20px 20px 7px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #333;
+    box-shadow: 0 1px 2px #8b8b8b inset,0 -1px 0 #3d3d3d inset,0 -2px 3px #8b8b8b inset;
+    background: -webkit-linear-gradient(top,#656565,#4c4c4c);
+    background: -moz-linear-gradient(top,#656565,#4a4a4a);
+    background: linear-gradient(top,#656565,#4a4a4a);
+}
 
 
 
