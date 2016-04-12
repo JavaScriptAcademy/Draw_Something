@@ -79,14 +79,12 @@ body {
 .answer {
   width: 350px;
   min-height: 100%;
-  background: white;
   float: left;
   font-size: 14px;
 }
 
 
 header {
-  background: #d2edf4;
   padding: 20px 15px 15px 15px;
   position: relative;
 }
@@ -126,7 +124,6 @@ form {
 ul {
   margin: 0;
   padding: 0;
-
 }
 
 .delete {
@@ -141,7 +138,7 @@ ul {
 li {
   position: relative;
   list-style: none;
-  padding: 15px;
+  padding: 8px;
   border-bottom: #eee solid 1px;
 }
 

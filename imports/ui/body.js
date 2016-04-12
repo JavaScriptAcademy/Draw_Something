@@ -18,6 +18,7 @@ Template.body.onCreated(function bodyOnCreated() {
 
 }); 
 
+
 Template.body.helpers({
 	tasks() {
 		// Show newest tasks at the top
@@ -100,7 +101,7 @@ Template.body.events({
 
     if(y===text){
        // console.log("win")
-     alert(Meteor.user().username+" is the winner!!");
+     alert(Meteor.user().username+" is the winner!");
     };
     Meteor.subscribe('taskdata');
    },
